@@ -9,7 +9,7 @@
 
 
 
-<link rel="canonical" href="/exploratory-data-analysis-of-the-white-wine-based-on-physicochemical-properties.html">
+<link rel="canonical" href="http://olegleyz.github.io/exploratory-data-analysis-of-the-white-wine-based-on-physicochemical-properties.html">
 
         <meta name="author" content="Oleg Leyzerov, ggplot" />
         <meta name="keywords" content="R,exploratory data analysis" />
@@ -18,7 +18,7 @@
         <meta property="og:site_name" content="Oleg's blog" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Exploratory Data Analysis of the White Wine based on physicochemical properties"/>
-        <meta property="og:url" content="/exploratory-data-analysis-of-the-white-wine-based-on-physicochemical-properties.html"/>
+        <meta property="og:url" content="http://olegleyz.github.io/exploratory-data-analysis-of-the-white-wine-based-on-physicochemical-properties.html"/>
         <meta property="og:description" content="Summary White wine has existed for at least 2500 years. The sommelier - subject-matter expert on wine - learns and practices hard to understand the topic. I&#39;m going to gain some knowledge of wine by conducting the exploratory data analysis of the data set with the physicochemical and quality of the ..."/>
         <meta property="article:published_time" content="2016-05-20" />
             <meta property="article:section" content="Portfolio" />
@@ -28,15 +28,19 @@
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="/theme/css/bootstrap.simplex.min.css" type="text/css"/>
-    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="http://olegleyz.github.io/theme/css/bootstrap.simplex.min.css" type="text/css"/>
+    <link href="http://olegleyz.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="/theme/css/pygments/default.css" rel="stylesheet">
-    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+    <link href="http://olegleyz.github.io/theme/css/pygments/default.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://olegleyz.github.io/theme/css/style.css" type="text/css"/>
+
+        <link href="http://olegleyz.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Oleg's blog ATOM Feed"/>
 
 
 
-
+        <link href="http://olegleyz.github.io/feeds/portfolio.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Oleg's blog Portfolio ATOM Feed"/>
 
 </head>
 <body>
@@ -50,13 +54,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="/" class="navbar-brand">
+            <a href="http://olegleyz.github.io/" class="navbar-brand">
 Oleg's blog            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
                         <li class="active">
-                            <a href="/category/portfolio.html">Portfolio</a>
+                            <a href="http://olegleyz.github.io/category/portfolio.html">Portfolio</a>
                         </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -74,7 +78,7 @@ Oleg's blog            </a>
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="/exploratory-data-analysis-of-the-white-wine-based-on-physicochemical-properties.html"
+                    <a href="http://olegleyz.github.io/exploratory-data-analysis-of-the-white-wine-based-on-physicochemical-properties.html"
                        rel="bookmark"
                        title="Permalink to Exploratory Data Analysis of the White Wine based on physicochemical properties">
                         Exploratory Data Analysis of the White Wine based on physicochemical properties
@@ -95,9 +99,9 @@ Oleg's blog            </a>
 
 
 <span class="label label-default">Tags</span>
-	<a href="/tag/r.html">R</a>
+	<a href="http://olegleyz.github.io/tag/r.html">R</a>
         /
-	<a href="/tag/exploratory-data-analysis.html">exploratory data analysis</a>
+	<a href="http://olegleyz.github.io/tag/exploratory-data-analysis.html">exploratory data analysis</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
@@ -174,11 +178,11 @@ Despite the fact that experts were able to grade the quality of the wine between
 <h1>Univariate Plots Section</h1>
 <p>The following grid visualize the distributions of provided variables.<br />
 Red line represents the median, green - the mean, doted lines are first and third quartiles.  </p>
-<p><img alt="plot of chunk Univariate_Plots" src="/figure/Univariate_Plots-1.png" /></p>
+<p><img alt="plot of chunk Univariate_Plots" src="http://olegleyz.github.io/figure/Univariate_Plots-1.png" /></p>
 <p>Based on the first histogram, most of the wine in the dataset has quality 6 following by 5 and 7. There are quite a few observations with quality scores 3, 4, 8 and 9. Now I'm going to keep looking at the variables as it is but consider to create a new quality variable to union wine with rare quality scores later on.<br />
 As assumed most of the variables (except Residual Sugar and Alcohol) represent simmetrical distribution with the right tails. Residual sugar is distribution is positively skewed, has a peak around 2 g / dm^3 and a long right tail. <br />
 For better visualization I trim the long tails and transformthe x axis of Residual Sugar to log10:  </p>
-<p><img alt="plot of chunk Univariate_Plots2" src="/figure/Univariate_Plots2-1.png" /></p>
+<p><img alt="plot of chunk Univariate_Plots2" src="http://olegleyz.github.io/figure/Univariate_Plots2-1.png" /></p>
 <p>This visualization identifies bi-modal character of the distribution with peaks around 1.5 and 8 g/dm^3.  </p>
 <h1>Univariate Analysis</h1>
 <h3>What is the structure of your dataset?</h3>
@@ -200,20 +204,20 @@ Other observations:<br />
 <h1>Bivariate Plots Section</h1>
 <h1>Bivariate Analysis</h1>
 <p>I would like to start my bivariate analysis with a quick look on the boxplot visualization of our variables against the quality factor and try to get some relatioships:</p>
-<p><img alt="plot of chunk eda-wine-4" src="/figure/eda-wine-4-1.png" /></p>
+<p><img alt="plot of chunk eda-wine-4" src="http://olegleyz.github.io/figure/eda-wine-4-1.png" /></p>
 <p>The data variablity of wine with the quality score 9 is really small. It might be because the amount of observations is really small. Here is not to many clear correlations but seems that with the increase of quality alcohol is increasing and density is decreasing.<br />
 Let's try the same visualization but with the quality.factor2:</p>
-<p><img alt="plot of chunk eda-wine-5" src="/figure/eda-wine-5-1.png" /></p>
+<p><img alt="plot of chunk eda-wine-5" src="http://olegleyz.github.io/figure/eda-wine-5-1.png" /></p>
 <p>Current plots visualize even better positive correlation betweeb alcohol and quality and negative correlation between density and quality.</p>
-<p><img alt="plot of chunk eda-wine-6" src="/figure/eda-wine-6-1.png" /></p>
+<p><img alt="plot of chunk eda-wine-6" src="http://olegleyz.github.io/figure/eda-wine-6-1.png" /></p>
 <p>Let's visualize density on frequency polygon and color it by quality:
-<img alt="plot of chunk eda-wine-7" src="/figure/eda-wine-7-1.png" /></p>
+<img alt="plot of chunk eda-wine-7" src="http://olegleyz.github.io/figure/eda-wine-7-1.png" /></p>
 <p>Most quality wine has lower density and it's quite clear on this kind of the visualization.</p>
 <p>All other features seems not to be important for the quality.</p>
 <h3>Talk about some of the relationships you observed in this part of the investigation. How did the feature(s) of interest vary with other features in the dataset?</h3>
 <p>I had a particular interest in quality exploration. Now it's time to investigate the secrets of wine flavor and check the relationships between physicochemical properties.
 Let's look now on the other possible correlations between the factors.  </p>
-<p><img alt="plot of chunk Bivariate_Plots" src="/figure/Bivariate_Plots-1.png" /></p>
+<p><img alt="plot of chunk Bivariate_Plots" src="http://olegleyz.github.io/figure/Bivariate_Plots-1.png" /></p>
 <p>We can see the correlations between variables:
 <em> alcohol and sugar
 </em> density and sugar 
@@ -221,21 +225,21 @@ Let's look now on the other possible correlations between the factors.  </p>
 </em> sugar and total sulfur dioxide
 We probably can ignore the correlation between free and total sulfur.dioxide as one variable contains in another</p>
 <p>I would like to visualize relationship between alcohol and sugar:</p>
-<p><img alt="plot of chunk eda-wine-8" src="/figure/eda-wine-8-1.png" /></p>
+<p><img alt="plot of chunk eda-wine-8" src="http://olegleyz.github.io/figure/eda-wine-8-1.png" /></p>
 <p>There is some correlation between alochol and sugar. And that's fair enough: sweet wines, whether moelleux (Sweet: 12-45 g/l of sugar) or liquoreux (Fortified: &gt;45 g/l sugar) wines are where the fermentation is interrupted before all the grape sugars are converted into alcohol: this is called Mutage or fortification[1]. That means sweeter the wine (more sugar in the wine) - less alcohol.</p>
 <p>Now I'm curious about the correlation between total sulfur dioxide and sugar.</p>
-<p><img alt="plot of chunk eda-wine-9" src="/figure/eda-wine-9-1.png" /></p>
+<p><img alt="plot of chunk eda-wine-9" src="http://olegleyz.github.io/figure/eda-wine-9-1.png" /></p>
 <p>There is also quite a strong correlation between SO2 and sugar. That's because SO2, sulphur dioxide, plays a protective role in the wine against the phenomena of oxidation, oxidase enzyme action (enzymes that oxidize the polyphenols in wine), and the control of microbial populations in yeasts and bacteria (antiseptic effect). The maximum allowable doses depend on the sugar content of the wine: the residual sugar is susceptible to attack by microorganisms which would cause a restart of fermentation.[1]</p>
 <h3>Did you observe any interesting relationships between the other features (not the main feature(s) of interest)?</h3>
 <p>Flavor related relationships which is good to know if you're not a sommellier.</p>
 <h3>What was the strongest relationship you found?</h3>
 <p>Sugar and density</p>
 <h1>Multivariate Plots Section</h1>
-<p><img alt="plot of chunk Multivariate_Plots" src="/figure/Multivariate_Plots-1.png" /></p>
+<p><img alt="plot of chunk Multivariate_Plots" src="http://olegleyz.github.io/figure/Multivariate_Plots-1.png" /></p>
 <p>It looks like the better quality wines have lower density with the same sweetness of the wine. There is a negative correlation between Fixed acidity and pH but seems there is no clear influence on quality factor. </p>
 <p>Now I'm going to explore density as it has relationships with lot's of other variables.
 There is a strong positive correlation between density and sugar, negative correlation between quality (remember from previous section) and alcohol. Let's visualize density and try find some logic.</p>
-<p><img alt="plot of chunk eda-wine-10" src="/figure/eda-wine-10-1.png" /></p>
+<p><img alt="plot of chunk eda-wine-10" src="http://olegleyz.github.io/figure/eda-wine-10-1.png" /></p>
 <p>This visualization gives us 2 ideas: sweater wine has more density and wine with the same sweetness has larger volume of alcohol with lower density. </p>
 <h1>Multivariate Analysis</h1>
 <h3>Talk about some of the relationships you observed in this part of the investigation. Were there features that strengthened each other in terms of looking at your feature(s) of interest?</h3>
@@ -245,7 +249,7 @@ There is a strong positive correlation between density and sugar, negative corre
 <hr />
 <h1>Final Plots and Summary</h1>
 <h3>Plot One</h3>
-<p><img alt="plot of chunk Plot_One" src="/figure/Plot_One-1.png" /></p>
+<p><img alt="plot of chunk Plot_One" src="http://olegleyz.github.io/figure/Plot_One-1.png" /></p>
 <h3>Description One</h3>
 <p>The first plot visualize the strongest relationship between wine and physicochemical properties - alcohol. For clarity we're using here created quality variable, unioned rare quality scores.<br />
 That's a surprising outcome but it's tend to be that experts give higher scores to the wine with higher volume of alcohol.</p>
@@ -268,7 +272,7 @@ That's a surprising outcome but it's tend to be that experts give higher scores 
 Median alcohol for average quality wines is 10.50 with IQR 1.80.  <br />
 Median alcohol for high quality wines is 11.50 with IQR 1.70.  </p>
 <h3>Plot Two and Three</h3>
-<p><img alt="plot of chunk Plot_Two" src="/figure/Plot_Two-1.png" /></p>
+<p><img alt="plot of chunk Plot_Two" src="http://olegleyz.github.io/figure/Plot_Two-1.png" /></p>
 <h3>Description Two</h3>
 <p>Density is an important feature of the wine. Based on our exloratory data analysis, it's second most important for the quality and has negative correlation. The reader can see it clearly on the current visualisation of frequency polygon. The outcome is the following: the better wine tend to have lower density. Now we can know that for the better wine we should consider wine with more alcohol and lower density.</p>
 <div class="highlight"><pre><span></span><span class="cp">##</span><span class="c"> wine$quality.factor2: low</span><span class="x"></span>
@@ -289,7 +293,7 @@ Median alcohol for high quality wines is 11.50 with IQR 1.70.  </p>
 Median density for average quality wines is 0.9937.  <br />
 Median density for high quality wines is 0.9917</p>
 <h3>Plot Three</h3>
-<p><img alt="plot of chunk eda-wine-13" src="/figure/eda-wine-13-1.png" /></p>
+<p><img alt="plot of chunk eda-wine-13" src="http://olegleyz.github.io/figure/eda-wine-13-1.png" /></p>
 <h3>Description Three</h3>
 <p>We've also found some interesting knowledge in the wine physicochemical properties, exploring correlation of residual sugar, density and alcohol: sweater wine has more density and wine with the same sweetness has larger volume of alcohol with lower density. Anotherwords, looking for the good wine with larger volume of alcohol and knowing what sweetness you like more you could expect lower density.</p>
 <hr />
@@ -320,7 +324,7 @@ Measures used to collect the data. The quality review is a person opinion of the
             var disqus_shortname = 'leyzerov'; // required: replace example with your forum shortname
 
                     var disqus_identifier = 'exploratory-data-analysis-of-the-white-wine-based-on-physicochemical-properties';
-                var disqus_url = '/exploratory-data-analysis-of-the-white-wine-based-on-physicochemical-properties.html';
+                var disqus_url = 'https://olegleyz.github.io/exploratory-data-analysis-of-the-white-wine-based-on-physicochemical-properties.html';
 
             var disqus_config = function () {
                 this.language = "en";
@@ -378,13 +382,13 @@ Measures used to collect the data. The quality review is a person opinion of the
       </div>
    </div>
 </footer>
-<script src="/theme/js/jquery.min.js"></script>
+<script src="http://olegleyz.github.io/theme/js/jquery.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/theme/js/bootstrap.min.js"></script>
+<script src="http://olegleyz.github.io/theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="/theme/js/respond.min.js"></script>
+<script src="http://olegleyz.github.io/theme/js/respond.min.js"></script>
 
     <!-- Disqus -->
     <script type="text/javascript">
