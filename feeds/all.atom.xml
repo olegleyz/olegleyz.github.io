@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Oleg's blog</title><link href="http://olegleyz.github.io/" rel="alternate"></link><link href="http://olegleyz.github.io/feeds/all.atom.xml" rel="self"></link><id>http://olegleyz.github.io/</id><updated>2016-08-03T17:00:00+02:00</updated><entry><title>Identifing Fraud from Enron Email and financial data</title><link href="http://olegleyz.github.io/enron_classifier.html" rel="alternate"></link><published>2016-08-03T17:00:00+02:00</published><author><name>Oleg Leyzerov</name></author><id>tag:olegleyz.github.io,2016-08-03:enron_classifier.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Oleg's blog</title><link href="https://olegleyz.github.io/" rel="alternate"></link><link href="https://olegleyz.github.io/feeds/all.atom.xml" rel="self"></link><id>https://olegleyz.github.io/</id><updated>2016-08-03T17:00:00+02:00</updated><entry><title>Identifing Fraud from Enron Email and financial data</title><link href="https://olegleyz.github.io/enron_classifier.html" rel="alternate"></link><published>2016-08-03T17:00:00+02:00</published><author><name>Oleg Leyzerov</name></author><id>tag:olegleyz.github.io,2016-08-03:enron_classifier.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
 *
 * IPython notebook
 *
@@ -2167,7 +2167,7 @@ F1 score on Wikipedia: &lt;a href="https://en.wikipedia.org/wiki/F1_score"&gt;ht
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 &lt;/script&gt;
-</summary><category term="python"></category><category term="machine learning"></category><category term="classification"></category><category term="sklearn"></category></entry><entry><title>Exploratory Data Analysis of the White Wine based on physicochemical properties</title><link href="http://olegleyz.github.io/exploratory-data-analysis-of-the-white-wine-based-on-physicochemical-properties.html" rel="alternate"></link><published>2016-05-20T00:00:00+02:00</published><author><name>Oleg Leyzerov, ggplot</name></author><id>tag:olegleyz.github.io,2016-05-20:exploratory-data-analysis-of-the-white-wine-based-on-physicochemical-properties.html</id><summary type="html">&lt;p&gt;&lt;img alt="White Wine" src="https://cdn.aldi-digital.co.uk/C_WHITE-BAN-2_20151002.jpg?o=N10yPIvLRHZGwK1FW6a8gR27T%40cj&amp;amp;V=gadc&amp;amp;p=2&amp;amp;w=1024&amp;amp;c=476,0,2524,660&amp;amp;q=75" /&gt;&lt;/p&gt;
+</summary><category term="python"></category><category term="machine learning"></category><category term="classification"></category><category term="sklearn"></category></entry><entry><title>Exploratory Data Analysis of the White Wine based on physicochemical properties</title><link href="https://olegleyz.github.io/exploratory-data-analysis-of-the-white-wine-based-on-physicochemical-properties.html" rel="alternate"></link><published>2016-05-20T00:00:00+02:00</published><author><name>Oleg Leyzerov, ggplot</name></author><id>tag:olegleyz.github.io,2016-05-20:exploratory-data-analysis-of-the-white-wine-based-on-physicochemical-properties.html</id><summary type="html">&lt;p&gt;&lt;img alt="White Wine" src="https://cdn.aldi-digital.co.uk/C_WHITE-BAN-2_20151002.jpg?o=N10yPIvLRHZGwK1FW6a8gR27T%40cj&amp;amp;V=gadc&amp;amp;p=2&amp;amp;w=1024&amp;amp;c=476,0,2524,660&amp;amp;q=75" /&gt;&lt;/p&gt;
 &lt;h1&gt;Summary&lt;/h1&gt;
 &lt;p&gt;White wine has existed for at least 2500 years. The sommelier - subject-matter expert on wine - learns and practices hard to understand the topic. I'm going to gain some knowledge of wine by conducting the exploratory data analysis of the data set with the physicochemical and quality of the wine. &lt;/p&gt;
 &lt;h1&gt;Citation&lt;/h1&gt;
@@ -2240,11 +2240,11 @@ Despite the fact that experts were able to grade the quality of the wine between
 &lt;h1&gt;Univariate Plots Section&lt;/h1&gt;
 &lt;p&gt;The following grid visualize the distributions of provided variables.&lt;br /&gt;
 Red line represents the median, green - the mean, doted lines are first and third quartiles.  &lt;/p&gt;
-&lt;p&gt;&lt;img alt="plot of chunk Univariate_Plots" src="http://olegleyz.github.io/figure/Univariate_Plots-1.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="plot of chunk Univariate_Plots" src="https://olegleyz.github.io/figure/Univariate_Plots-1.png" /&gt;&lt;/p&gt;
 &lt;p&gt;Based on the first histogram, most of the wine in the dataset has quality 6 following by 5 and 7. There are quite a few observations with quality scores 3, 4, 8 and 9. Now I'm going to keep looking at the variables as it is but consider to create a new quality variable to union wine with rare quality scores later on.&lt;br /&gt;
 As assumed most of the variables (except Residual Sugar and Alcohol) represent simmetrical distribution with the right tails. Residual sugar is distribution is positively skewed, has a peak around 2 g / dm^3 and a long right tail. &lt;br /&gt;
 For better visualization I trim the long tails and transformthe x axis of Residual Sugar to log10:  &lt;/p&gt;
-&lt;p&gt;&lt;img alt="plot of chunk Univariate_Plots2" src="http://olegleyz.github.io/figure/Univariate_Plots2-1.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="plot of chunk Univariate_Plots2" src="https://olegleyz.github.io/figure/Univariate_Plots2-1.png" /&gt;&lt;/p&gt;
 &lt;p&gt;This visualization identifies bi-modal character of the distribution with peaks around 1.5 and 8 g/dm^3.  &lt;/p&gt;
 &lt;h1&gt;Univariate Analysis&lt;/h1&gt;
 &lt;h3&gt;What is the structure of your dataset?&lt;/h3&gt;
@@ -2266,20 +2266,20 @@ Other observations:&lt;br /&gt;
 &lt;h1&gt;Bivariate Plots Section&lt;/h1&gt;
 &lt;h1&gt;Bivariate Analysis&lt;/h1&gt;
 &lt;p&gt;I would like to start my bivariate analysis with a quick look on the boxplot visualization of our variables against the quality factor and try to get some relatioships:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="plot of chunk eda-wine-4" src="http://olegleyz.github.io/figure/eda-wine-4-1.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="plot of chunk eda-wine-4" src="https://olegleyz.github.io/figure/eda-wine-4-1.png" /&gt;&lt;/p&gt;
 &lt;p&gt;The data variablity of wine with the quality score 9 is really small. It might be because the amount of observations is really small. Here is not to many clear correlations but seems that with the increase of quality alcohol is increasing and density is decreasing.&lt;br /&gt;
 Let's try the same visualization but with the quality.factor2:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="plot of chunk eda-wine-5" src="http://olegleyz.github.io/figure/eda-wine-5-1.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="plot of chunk eda-wine-5" src="https://olegleyz.github.io/figure/eda-wine-5-1.png" /&gt;&lt;/p&gt;
 &lt;p&gt;Current plots visualize even better positive correlation betweeb alcohol and quality and negative correlation between density and quality.&lt;/p&gt;
-&lt;p&gt;&lt;img alt="plot of chunk eda-wine-6" src="http://olegleyz.github.io/figure/eda-wine-6-1.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="plot of chunk eda-wine-6" src="https://olegleyz.github.io/figure/eda-wine-6-1.png" /&gt;&lt;/p&gt;
 &lt;p&gt;Let's visualize density on frequency polygon and color it by quality:
-&lt;img alt="plot of chunk eda-wine-7" src="http://olegleyz.github.io/figure/eda-wine-7-1.png" /&gt;&lt;/p&gt;
+&lt;img alt="plot of chunk eda-wine-7" src="https://olegleyz.github.io/figure/eda-wine-7-1.png" /&gt;&lt;/p&gt;
 &lt;p&gt;Most quality wine has lower density and it's quite clear on this kind of the visualization.&lt;/p&gt;
 &lt;p&gt;All other features seems not to be important for the quality.&lt;/p&gt;
 &lt;h3&gt;Talk about some of the relationships you observed in this part of the investigation. How did the feature(s) of interest vary with other features in the dataset?&lt;/h3&gt;
 &lt;p&gt;I had a particular interest in quality exploration. Now it's time to investigate the secrets of wine flavor and check the relationships between physicochemical properties.
 Let's look now on the other possible correlations between the factors.  &lt;/p&gt;
-&lt;p&gt;&lt;img alt="plot of chunk Bivariate_Plots" src="http://olegleyz.github.io/figure/Bivariate_Plots-1.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="plot of chunk Bivariate_Plots" src="https://olegleyz.github.io/figure/Bivariate_Plots-1.png" /&gt;&lt;/p&gt;
 &lt;p&gt;We can see the correlations between variables:
 &lt;em&gt; alcohol and sugar
 &lt;/em&gt; density and sugar 
@@ -2287,21 +2287,21 @@ Let's look now on the other possible correlations between the factors.  &lt;/p&g
 &lt;/em&gt; sugar and total sulfur dioxide
 We probably can ignore the correlation between free and total sulfur.dioxide as one variable contains in another&lt;/p&gt;
 &lt;p&gt;I would like to visualize relationship between alcohol and sugar:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="plot of chunk eda-wine-8" src="http://olegleyz.github.io/figure/eda-wine-8-1.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="plot of chunk eda-wine-8" src="https://olegleyz.github.io/figure/eda-wine-8-1.png" /&gt;&lt;/p&gt;
 &lt;p&gt;There is some correlation between alochol and sugar. And that's fair enough: sweet wines, whether moelleux (Sweet: 12-45 g/l of sugar) or liquoreux (Fortified: &amp;gt;45 g/l sugar) wines are where the fermentation is interrupted before all the grape sugars are converted into alcohol: this is called Mutage or fortification[1]. That means sweeter the wine (more sugar in the wine) - less alcohol.&lt;/p&gt;
 &lt;p&gt;Now I'm curious about the correlation between total sulfur dioxide and sugar.&lt;/p&gt;
-&lt;p&gt;&lt;img alt="plot of chunk eda-wine-9" src="http://olegleyz.github.io/figure/eda-wine-9-1.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="plot of chunk eda-wine-9" src="https://olegleyz.github.io/figure/eda-wine-9-1.png" /&gt;&lt;/p&gt;
 &lt;p&gt;There is also quite a strong correlation between SO2 and sugar. That's because SO2, sulphur dioxide, plays a protective role in the wine against the phenomena of oxidation, oxidase enzyme action (enzymes that oxidize the polyphenols in wine), and the control of microbial populations in yeasts and bacteria (antiseptic effect). The maximum allowable doses depend on the sugar content of the wine: the residual sugar is susceptible to attack by microorganisms which would cause a restart of fermentation.[1]&lt;/p&gt;
 &lt;h3&gt;Did you observe any interesting relationships between the other features (not the main feature(s) of interest)?&lt;/h3&gt;
 &lt;p&gt;Flavor related relationships which is good to know if you're not a sommellier.&lt;/p&gt;
 &lt;h3&gt;What was the strongest relationship you found?&lt;/h3&gt;
 &lt;p&gt;Sugar and density&lt;/p&gt;
 &lt;h1&gt;Multivariate Plots Section&lt;/h1&gt;
-&lt;p&gt;&lt;img alt="plot of chunk Multivariate_Plots" src="http://olegleyz.github.io/figure/Multivariate_Plots-1.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="plot of chunk Multivariate_Plots" src="https://olegleyz.github.io/figure/Multivariate_Plots-1.png" /&gt;&lt;/p&gt;
 &lt;p&gt;It looks like the better quality wines have lower density with the same sweetness of the wine. There is a negative correlation between Fixed acidity and pH but seems there is no clear influence on quality factor. &lt;/p&gt;
 &lt;p&gt;Now I'm going to explore density as it has relationships with lot's of other variables.
 There is a strong positive correlation between density and sugar, negative correlation between quality (remember from previous section) and alcohol. Let's visualize density and try find some logic.&lt;/p&gt;
-&lt;p&gt;&lt;img alt="plot of chunk eda-wine-10" src="http://olegleyz.github.io/figure/eda-wine-10-1.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="plot of chunk eda-wine-10" src="https://olegleyz.github.io/figure/eda-wine-10-1.png" /&gt;&lt;/p&gt;
 &lt;p&gt;This visualization gives us 2 ideas: sweater wine has more density and wine with the same sweetness has larger volume of alcohol with lower density. &lt;/p&gt;
 &lt;h1&gt;Multivariate Analysis&lt;/h1&gt;
 &lt;h3&gt;Talk about some of the relationships you observed in this part of the investigation. Were there features that strengthened each other in terms of looking at your feature(s) of interest?&lt;/h3&gt;
@@ -2311,7 +2311,7 @@ There is a strong positive correlation between density and sugar, negative corre
 &lt;hr /&gt;
 &lt;h1&gt;Final Plots and Summary&lt;/h1&gt;
 &lt;h3&gt;Plot One&lt;/h3&gt;
-&lt;p&gt;&lt;img alt="plot of chunk Plot_One" src="http://olegleyz.github.io/figure/Plot_One-1.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="plot of chunk Plot_One" src="https://olegleyz.github.io/figure/Plot_One-1.png" /&gt;&lt;/p&gt;
 &lt;h3&gt;Description One&lt;/h3&gt;
 &lt;p&gt;The first plot visualize the strongest relationship between wine and physicochemical properties - alcohol. For clarity we're using here created quality variable, unioned rare quality scores.&lt;br /&gt;
 That's a surprising outcome but it's tend to be that experts give higher scores to the wine with higher volume of alcohol.&lt;/p&gt;
@@ -2334,7 +2334,7 @@ That's a surprising outcome but it's tend to be that experts give higher scores 
 Median alcohol for average quality wines is 10.50 with IQR 1.80.  &lt;br /&gt;
 Median alcohol for high quality wines is 11.50 with IQR 1.70.  &lt;/p&gt;
 &lt;h3&gt;Plot Two and Three&lt;/h3&gt;
-&lt;p&gt;&lt;img alt="plot of chunk Plot_Two" src="http://olegleyz.github.io/figure/Plot_Two-1.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="plot of chunk Plot_Two" src="https://olegleyz.github.io/figure/Plot_Two-1.png" /&gt;&lt;/p&gt;
 &lt;h3&gt;Description Two&lt;/h3&gt;
 &lt;p&gt;Density is an important feature of the wine. Based on our exloratory data analysis, it's second most important for the quality and has negative correlation. The reader can see it clearly on the current visualisation of frequency polygon. The outcome is the following: the better wine tend to have lower density. Now we can know that for the better wine we should consider wine with more alcohol and lower density.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;##&lt;/span&gt;&lt;span class="c"&gt; wine$quality.factor2: low&lt;/span&gt;&lt;span class="x"&gt;&lt;/span&gt;
@@ -2355,7 +2355,7 @@ Median alcohol for high quality wines is 11.50 with IQR 1.70.  &lt;/p&gt;
 Median density for average quality wines is 0.9937.  &lt;br /&gt;
 Median density for high quality wines is 0.9917&lt;/p&gt;
 &lt;h3&gt;Plot Three&lt;/h3&gt;
-&lt;p&gt;&lt;img alt="plot of chunk eda-wine-13" src="http://olegleyz.github.io/figure/eda-wine-13-1.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="plot of chunk eda-wine-13" src="https://olegleyz.github.io/figure/eda-wine-13-1.png" /&gt;&lt;/p&gt;
 &lt;h3&gt;Description Three&lt;/h3&gt;
 &lt;p&gt;We've also found some interesting knowledge in the wine physicochemical properties, exploring correlation of residual sugar, density and alcohol: sweater wine has more density and wine with the same sweetness has larger volume of alcohol with lower density. Anotherwords, looking for the good wine with larger volume of alcohol and knowing what sweetness you like more you could expect lower density.&lt;/p&gt;
 &lt;hr /&gt;
@@ -2373,7 +2373,7 @@ Measures used to collect the data. The quality review is a person opinion of the
 &lt;h1&gt;References:&lt;/h1&gt;
 &lt;ol&gt;
 &lt;li&gt;White wine: https://en.wikipedia.org/wiki/White_wine&lt;/li&gt;
-&lt;/ol&gt;</summary><category term="R"></category><category term="exploratory data analysis"></category></entry><entry><title>Wrangle OpenStreetMap Data of Gastein Valley Austria</title><link href="http://olegleyz.github.io/data_wrangling.html" rel="alternate"></link><published>2016-05-06T17:00:00+02:00</published><author><name>Oleg Leyzerov</name></author><id>tag:olegleyz.github.io,2016-05-06:data_wrangling.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
+&lt;/ol&gt;</summary><category term="R"></category><category term="exploratory data analysis"></category></entry><entry><title>Wrangle OpenStreetMap Data of Gastein Valley Austria</title><link href="https://olegleyz.github.io/data_wrangling.html" rel="alternate"></link><published>2016-05-06T17:00:00+02:00</published><author><name>Oleg Leyzerov</name></author><id>tag:olegleyz.github.io,2016-05-06:data_wrangling.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
 *
 * IPython notebook
 *
@@ -3693,7 +3693,7 @@ Adding more information from more sources bring more issues with cleaning the da
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 &lt;/script&gt;
-</summary><category term="python"></category><category term="cElementTree"></category><category term="PyMongo"></category><category term="MongoDB"></category><category term="Google Places API"></category><category term="data wrangling"></category></entry><entry><title>Titanic: factors to survive</title><link href="http://olegleyz.github.io/titanic_factors.html" rel="alternate"></link><published>2016-04-23T17:00:00+02:00</published><author><name>Oleg Leyzerov</name></author><id>tag:olegleyz.github.io,2016-04-23:titanic_factors.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
+</summary><category term="python"></category><category term="cElementTree"></category><category term="PyMongo"></category><category term="MongoDB"></category><category term="Google Places API"></category><category term="data wrangling"></category></entry><entry><title>Titanic: factors to survive</title><link href="https://olegleyz.github.io/titanic_factors.html" rel="alternate"></link><published>2016-04-23T17:00:00+02:00</published><author><name>Oleg Leyzerov</name></author><id>tag:olegleyz.github.io,2016-04-23:titanic_factors.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
 *
 * IPython notebook
 *
@@ -7470,7 +7470,7 @@ iMScEr2ISMwp0YuIxJwSvYhIzCnRi4jE3P8HM9pZLrqql4EAAAAASUVORK5CYII=
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 &lt;/script&gt;
-</summary><category term="python"></category><category term="pandas"></category><category term="numpy"></category><category term="matplotlib"></category><category term="seaborn"></category><category term="exploratory data analysis"></category></entry><entry><title>STROOP EFFECT: Statistical investigation of the psychology phenomenon</title><link href="http://olegleyz.github.io/stroop_effect.html" rel="alternate"></link><published>2016-04-15T17:00:00+02:00</published><author><name>Oleg Leyzerov</name></author><id>tag:olegleyz.github.io,2016-04-15:stroop_effect.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
+</summary><category term="python"></category><category term="pandas"></category><category term="numpy"></category><category term="matplotlib"></category><category term="seaborn"></category><category term="exploratory data analysis"></category></entry><entry><title>STROOP EFFECT: Statistical investigation of the psychology phenomenon</title><link href="https://olegleyz.github.io/stroop_effect.html" rel="alternate"></link><published>2016-04-15T17:00:00+02:00</published><author><name>Oleg Leyzerov</name></author><id>tag:olegleyz.github.io,2016-04-15:stroop_effect.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
 *
 * IPython notebook
 *
