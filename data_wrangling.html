@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Wrangle OpenStreetMap Data of Gastein Valley Austria - Oleg's blog</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="/data_wrangling.html">
+
+        <meta name="author" content="Oleg Leyzerov" />
+        <meta name="keywords" content="python,cElementTree,PyMongo,MongoDB,Google Places API,data wrangling" />
+        <meta name="description" content="Summary¶Third project of the Udacity Data Analyst Nanodegree covers the aspects of the data wrangling: gathering, extracting, cleaning and storing the data. I was supposed to choose the region and wrangle the data set of the OpenStreetMap. I’ve chosen the place where I live - Gastein valley - one of the most popular tourist destinations in Austria, which is famous for the great skiing area and thermal water. In my project I’m going to concentrate on the accommodation data (hotels, apartments, etc.) as it’s always important for the travel industry." />
+
+        <meta property="og:site_name" content="Oleg's blog" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Wrangle OpenStreetMap Data of Gastein Valley Austria"/>
+        <meta property="og:url" content="/data_wrangling.html"/>
+        <meta property="og:description" content="Summary¶Third project of the Udacity Data Analyst Nanodegree covers the aspects of the data wrangling: gathering, extracting, cleaning and storing the data. I was supposed to choose the region and wrangle the data set of the OpenStreetMap. I’ve chosen the place where I live - Gastein valley - one of the most popular tourist destinations in Austria, which is famous for the great skiing area and thermal water. In my project I’m going to concentrate on the accommodation data (hotels, apartments, etc.) as it’s always important for the travel industry."/>
+        <meta property="article:published_time" content="2016-05-06" />
+            <meta property="article:section" content="portfolio" />
+            <meta property="article:tag" content="python" />
+            <meta property="article:tag" content="cElementTree" />
+            <meta property="article:tag" content="PyMongo" />
+            <meta property="article:tag" content="MongoDB" />
+            <meta property="article:tag" content="Google Places API" />
+            <meta property="article:tag" content="data wrangling" />
+            <meta property="article:author" content="Oleg Leyzerov" />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="/theme/css/bootstrap.simplex.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="/theme/css/pygments/default.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+
+
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">
+Oleg's blog            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="/category/portfolio.html">Portfolio</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="/data_wrangling.html"
+                       rel="bookmark"
+                       title="Permalink to Wrangle OpenStreetMap Data of Gastein Valley Austria">
+                        Wrangle OpenStreetMap Data of Gastein Valley Austria
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2016-05-06T17:00:00+02:00"> пт 06 мая 2016</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="/tag/python.html">python</a>
+        /
+	<a href="/tag/celementtree.html">cElementTree</a>
+        /
+	<a href="/tag/pymongo.html">PyMongo</a>
+        /
+	<a href="/tag/mongodb.html">MongoDB</a>
+        /
+	<a href="/tag/google-places-api.html">Google Places API</a>
+        /
+	<a href="/tag/data-wrangling.html">data wrangling</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <style type="text/css">/*!
+*
+* IPython notebook
+*
+*/
+/* CSS font colors for translated ANSI colors. */
+.ansibold {
+  font-weight: bold;
+}
+/* use dark versions for foreground, to improve visibility */
+.ansiblack {
+  color: black;
+}
+.ansired {
+  color: darkred;
+}
+.ansigreen {
+  color: darkgreen;
+}
+.ansiyellow {
+  color: #c4a000;
+}
+.ansiblue {
+  color: darkblue;
+}
+.ansipurple {
+  color: darkviolet;
+}
+.ansicyan {
+  color: steelblue;
+}
+.ansigray {
+  color: gray;
+}
+/* and light for background, for the same reason */
+.ansibgblack {
+  background-color: black;
+}
+.ansibgred {
+  background-color: red;
+}
+.ansibggreen {
+  background-color: green;
+}
+.ansibgyellow {
+  background-color: yellow;
+}
+.ansibgblue {
+  background-color: blue;
+}
+.ansibgpurple {
+  background-color: magenta;
+}
+.ansibgcyan {
+  background-color: cyan;
+}
+.ansibggray {
+  background-color: gray;
+}
+div.cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border-radius: 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
+  width: 100%;
+  padding: 5px;
+  /* This acts as a spacer between cells, that is outside the border */
+  margin: 0px;
+  outline: none;
+  border-left-width: 1px;
+  padding-left: 5px;
+  background: linear-gradient(to right, transparent -40px, transparent 1px, transparent 1px, transparent 100%);
+}
+div.cell.jupyter-soft-selected {
+  border-left-color: #90CAF9;
+  border-left-color: #E3F2FD;
+  border-left-width: 1px;
+  padding-left: 5px;
+  border-right-color: #E3F2FD;
+  border-right-width: 1px;
+  background: #E3F2FD;
+}
+@media print {
+  div.cell.jupyter-soft-selected {
+    border-color: transparent;
+  }
+}
+div.cell.selected {
+  border-color: #ababab;
+  border-left-width: 0px;
+  padding-left: 6px;
+  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 5px, transparent 5px, transparent 100%);
+}
+@media print {
+  div.cell.selected {
+    border-color: transparent;
+  }
+}
+div.cell.selected.jupyter-soft-selected {
+  border-left-width: 0;
+  padding-left: 6px;
+  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 7px, #E3F2FD 7px, #E3F2FD 100%);
+}
+.edit_mode div.cell.selected {
+  border-color: #66BB6A;
+  border-left-width: 0px;
+  padding-left: 6px;
+  background: linear-gradient(to right, #66BB6A -40px, #66BB6A 5px, transparent 5px, transparent 100%);
+}
+@media print {
+  .edit_mode div.cell.selected {
+    border-color: transparent;
+  }
+}
+.prompt {
+  /* This needs to be wide enough for 3 digit prompt numbers: In[100]: */
+  min-width: 14ex;
+  /* This padding is tuned to match the padding on the CodeMirror editor. */
+  padding: 0.4em;
+  margin: 0px;
+  font-family: monospace;
+  text-align: right;
+  /* This has to match that of the the CodeMirror class line-height below */
+  line-height: 1.21429em;
+  /* Don't highlight prompt number selection */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /* Use default cursor */
+  cursor: default;
+}
+@media (max-width: 540px) {
+  .prompt {
+    text-align: left;
+  }
+}
+div.inner_cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* Old browsers */
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+  /* Modern browsers */
+  flex: 1;
+}
+@-moz-document url-prefix() {
+  div.inner_cell {
+    overflow-x: hidden;
+  }
+}
+/* input_area and input_prompt must match in top border and margin for alignment */
+div.input_area {
+  border: 1px solid #cfcfcf;
+  border-radius: 2px;
+  background: #f7f7f7;
+  line-height: 1.21429em;
+}
+/* This is needed so that empty prompt areas can collapse to zero height when there
+   is no content in the output_subarea and the prompt. The main purpose of this is
+   to make sure that empty JavaScript output_subareas have no height. */
+div.prompt:empty {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+div.unrecognized_cell {
+  padding: 5px 5px 5px 0px;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+div.unrecognized_cell .inner_cell {
+  border-radius: 2px;
+  padding: 5px;
+  font-weight: bold;
+  color: red;
+  border: 1px solid #cfcfcf;
+  background: #eaeaea;
+}
+div.unrecognized_cell .inner_cell a {
+  color: inherit;
+  text-decoration: none;
+}
+div.unrecognized_cell .inner_cell a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+@media (max-width: 540px) {
+  div.unrecognized_cell > div.prompt {
+    display: none;
+  }
+}
+div.code_cell {
+  /* avoid page breaking on code cells when printing */
+}
+@media print {
+  div.code_cell {
+    page-break-inside: avoid;
+  }
+}
+/* any special styling for code cells that are currently running goes here */
+div.input {
+  page-break-inside: avoid;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.input {
+    /* Old browsers */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: stretch;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-box-align: stretch;
+    display: box;
+    box-orient: vertical;
+    box-align: stretch;
+    /* Modern browsers */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+/* input_area and input_prompt must match in top border and margin for alignment */
+div.input_prompt {
+  color: #303F9F;
+  border-top: 1px solid transparent;
+}
+div.input_area > div.highlight {
+  margin: 0.4em;
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+}
+div.input_area > div.highlight > pre {
+  margin: 0px;
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+}
+/* The following gets added to the <head> if it is detected that the user has a
+ * monospace font with inconsistent normal/bold/italic height.  See
+ * notebookmain.js.  Such fonts will have keywords vertically offset with
+ * respect to the rest of the text.  The user should select a better font.
+ * See: https://github.com/ipython/ipython/issues/1503
+ *
+ * .CodeMirror span {
+ *      vertical-align: bottom;
+ * }
+ */
+.CodeMirror {
+  line-height: 1.21429em;
+  /* Changed from 1em to our global default */
+  font-size: 14px;
+  height: auto;
+  /* Changed to auto to autogrow */
+  background: none;
+  /* Changed from white to allow our bg to show through */
+}
+.CodeMirror-scroll {
+  /*  The CodeMirror docs are a bit fuzzy on if overflow-y should be hidden or visible.*/
+  /*  We have found that if it is visible, vertical scrollbars appear with font size changes.*/
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+.CodeMirror-lines {
+  /* In CM2, this used to be 0.4em, but in CM3 it went to 4px. We need the em value because */
+  /* we have set a different line-height and want this to scale with that. */
+  padding: 0.4em;
+}
+.CodeMirror-linenumber {
+  padding: 0 8px 0 4px;
+}
+.CodeMirror-gutters {
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;
+}
+.CodeMirror pre {
+  /* In CM3 this went to 4px from 0 in CM2. We need the 0 value because of how we size */
+  /* .CodeMirror-lines */
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+}
+/*
+
+Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org>
+Adapted from GitHub theme
+
+*/
+.highlight-base {
+  color: #000;
+}
+.highlight-variable {
+  color: #000;
+}
+.highlight-variable-2 {
+  color: #1a1a1a;
+}
+.highlight-variable-3 {
+  color: #333333;
+}
+.highlight-string {
+  color: #BA2121;
+}
+.highlight-comment {
+  color: #408080;
+  font-style: italic;
+}
+.highlight-number {
+  color: #080;
+}
+.highlight-atom {
+  color: #88F;
+}
+.highlight-keyword {
+  color: #008000;
+  font-weight: bold;
+}
+.highlight-builtin {
+  color: #008000;
+}
+.highlight-error {
+  color: #f00;
+}
+.highlight-operator {
+  color: #AA22FF;
+  font-weight: bold;
+}
+.highlight-meta {
+  color: #AA22FF;
+}
+/* previously not defined, copying from default codemirror */
+.highlight-def {
+  color: #00f;
+}
+.highlight-string-2 {
+  color: #f50;
+}
+.highlight-qualifier {
+  color: #555;
+}
+.highlight-bracket {
+  color: #997;
+}
+.highlight-tag {
+  color: #170;
+}
+.highlight-attribute {
+  color: #00c;
+}
+.highlight-header {
+  color: blue;
+}
+.highlight-quote {
+  color: #090;
+}
+.highlight-link {
+  color: #00c;
+}
+/* apply the same style to codemirror */
+.cm-s-ipython span.cm-keyword {
+  color: #008000;
+  font-weight: bold;
+}
+.cm-s-ipython span.cm-atom {
+  color: #88F;
+}
+.cm-s-ipython span.cm-number {
+  color: #080;
+}
+.cm-s-ipython span.cm-def {
+  color: #00f;
+}
+.cm-s-ipython span.cm-variable {
+  color: #000;
+}
+.cm-s-ipython span.cm-operator {
+  color: #AA22FF;
+  font-weight: bold;
+}
+.cm-s-ipython span.cm-variable-2 {
+  color: #1a1a1a;
+}
+.cm-s-ipython span.cm-variable-3 {
+  color: #333333;
+}
+.cm-s-ipython span.cm-comment {
+  color: #408080;
+  font-style: italic;
+}
+.cm-s-ipython span.cm-string {
+  color: #BA2121;
+}
+.cm-s-ipython span.cm-string-2 {
+  color: #f50;
+}
+.cm-s-ipython span.cm-meta {
+  color: #AA22FF;
+}
+.cm-s-ipython span.cm-qualifier {
+  color: #555;
+}
+.cm-s-ipython span.cm-builtin {
+  color: #008000;
+}
+.cm-s-ipython span.cm-bracket {
+  color: #997;
+}
+.cm-s-ipython span.cm-tag {
+  color: #170;
+}
+.cm-s-ipython span.cm-attribute {
+  color: #00c;
+}
+.cm-s-ipython span.cm-header {
+  color: blue;
+}
+.cm-s-ipython span.cm-quote {
+  color: #090;
+}
+.cm-s-ipython span.cm-link {
+  color: #00c;
+}
+.cm-s-ipython span.cm-error {
+  color: #f00;
+}
+.cm-s-ipython span.cm-tab {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAMCAYAAAAkuj5RAAAAAXNSR0IArs4c6QAAAGFJREFUSMft1LsRQFAQheHPowAKoACx3IgEKtaEHujDjORSgWTH/ZOdnZOcM/sgk/kFFWY0qV8foQwS4MKBCS3qR6ixBJvElOobYAtivseIE120FaowJPN75GMu8j/LfMwNjh4HUpwg4LUAAAAASUVORK5CYII=);
+  background-position: right;
+  background-repeat: no-repeat;
+}
+div.output_wrapper {
+  /* this position must be relative to enable descendents to be absolute within it */
+  position: relative;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  z-index: 1;
+}
+/* class for the output area when it should be height-limited */
+div.output_scroll {
+  /* ideally, this would be max-height, but FF barfs all over that */
+  height: 24em;
+  /* FF needs this *and the wrapper* to specify full width, or it will shrinkwrap */
+  width: 100%;
+  overflow: auto;
+  border-radius: 2px;
+  -webkit-box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  display: block;
+}
+/* output div while it is collapsed */
+div.output_collapsed {
+  margin: 0px;
+  padding: 0px;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+div.out_prompt_overlay {
+  height: 100%;
+  padding: 0px 0.4em;
+  position: absolute;
+  border-radius: 2px;
+}
+div.out_prompt_overlay:hover {
+  /* use inner shadow to get border that is computed the same on WebKit/FF */
+  -webkit-box-shadow: inset 0 0 1px #000;
+  box-shadow: inset 0 0 1px #000;
+  background: rgba(240, 240, 240, 0.5);
+}
+div.output_prompt {
+  color: #D84315;
+}
+/* This class is the outer container of all output sections. */
+div.output_area {
+  padding: 0px;
+  page-break-inside: avoid;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+div.output_area .MathJax_Display {
+  text-align: left !important;
+}
+div.output_area 
+div.output_area 
+div.output_area img,
+div.output_area svg {
+  max-width: 100%;
+  height: auto;
+}
+div.output_area img.unconfined,
+div.output_area svg.unconfined {
+  max-width: none;
+}
+/* This is needed to protect the pre formating from global settings such
+   as that of bootstrap */
+.output {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.output_area {
+    /* Old browsers */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: stretch;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-box-align: stretch;
+    display: box;
+    box-orient: vertical;
+    box-align: stretch;
+    /* Modern browsers */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+div.output_area pre {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+  color: black;
+  background-color: transparent;
+  border-radius: 0;
+}
+/* This class is for the output subarea inside the output_area and after
+   the prompt div. */
+div.output_subarea {
+  overflow-x: auto;
+  padding: 0.4em;
+  /* Old browsers */
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+  /* Modern browsers */
+  flex: 1;
+  max-width: calc(100% - 14ex);
+}
+div.output_scroll div.output_subarea {
+  overflow-x: visible;
+}
+/* The rest of the output_* classes are for special styling of the different
+   output types */
+/* all text output has this class: */
+div.output_text {
+  text-align: left;
+  color: #000;
+  /* This has to match that of the the CodeMirror class line-height below */
+  line-height: 1.21429em;
+}
+/* stdout/stderr are 'text' as well as 'stream', but execute_result/error are *not* streams */
+div.output_stderr {
+  background: #fdd;
+  /* very light red background for stderr */
+}
+div.output_latex {
+  text-align: left;
+}
+/* Empty output_javascript divs should have no height */
+div.output_javascript:empty {
+  padding: 0;
+}
+.js-error {
+  color: darkred;
+}
+/* raw_input styles */
+div.raw_input_container {
+  line-height: 1.21429em;
+  padding-top: 5px;
+}
+pre.raw_input_prompt {
+  /* nothing needed here. */
+}
+input.raw_input {
+  font-family: monospace;
+  font-size: inherit;
+  color: inherit;
+  width: auto;
+  /* make sure input baseline aligns with prompt */
+  vertical-align: baseline;
+  /* padding + margin = 0.5em between prompt and cursor */
+  padding: 0em 0.25em;
+  margin: 0em 0.25em;
+}
+input.raw_input:focus {
+  box-shadow: none;
+}
+p.p-space {
+  margin-bottom: 10px;
+}
+div.output_unrecognized {
+  padding: 5px;
+  font-weight: bold;
+  color: red;
+}
+div.output_unrecognized a {
+  color: inherit;
+  text-decoration: none;
+}
+div.output_unrecognized a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+.rendered_html {
+  color: #000;
+  /* any extras will just be numbers: */
+}
+
+
+
+.rendered_html :link {
+  text-decoration: underline;
+}
+.rendered_html :visited {
+  text-decoration: underline;
+}
+
+
+
+
+
+
+.rendered_html h1:first-child {
+  margin-top: 0.538em;
+}
+.rendered_html h2:first-child {
+  margin-top: 0.636em;
+}
+.rendered_html h3:first-child {
+  margin-top: 0.777em;
+}
+.rendered_html h4:first-child {
+  margin-top: 1em;
+}
+.rendered_html h5:first-child {
+  margin-top: 1em;
+}
+.rendered_html h6:first-child {
+  margin-top: 1em;
+}
+
+
+
+
+
+
+
+
+.rendered_html * + ul {
+  margin-top: 1em;
+}
+.rendered_html * + ol {
+  margin-top: 1em;
+}
+
+
+.rendered_html pre,
+
+
+
+.rendered_html tr,
+.rendered_html th,
+
+.rendered_html td,
+
+
+.rendered_html * + table {
+  margin-top: 1em;
+}
+
+.rendered_html * + p {
+  margin-top: 1em;
+}
+
+.rendered_html * + img {
+  margin-top: 1em;
+}
+.rendered_html img,
+
+.rendered_html img.unconfined,
+
+div.text_cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.text_cell > div.prompt {
+    display: none;
+  }
+}
+div.text_cell_render {
+  /*font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;*/
+  outline: none;
+  resize: none;
+  width: inherit;
+  border-style: none;
+  padding: 0.5em 0.5em 0.5em 0.4em;
+  color: #000;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+a.anchor-link:link {
+  text-decoration: none;
+  padding: 0px 20px;
+  visibility: hidden;
+}
+h1:hover .anchor-link,
+h2:hover .anchor-link,
+h3:hover .anchor-link,
+h4:hover .anchor-link,
+h5:hover .anchor-link,
+h6:hover .anchor-link {
+  visibility: visible;
+}
+.text_cell.rendered .input_area {
+  display: none;
+}
+.text_cell.rendered 
+.text_cell.unrendered .text_cell_render {
+  display: none;
+}
+.cm-header-1,
+.cm-header-2,
+.cm-header-3,
+.cm-header-4,
+.cm-header-5,
+.cm-header-6 {
+  font-weight: bold;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.cm-header-1 {
+  font-size: 185.7%;
+}
+.cm-header-2 {
+  font-size: 157.1%;
+}
+.cm-header-3 {
+  font-size: 128.6%;
+}
+.cm-header-4 {
+  font-size: 110%;
+}
+.cm-header-5 {
+  font-size: 100%;
+  font-style: italic;
+}
+.cm-header-6 {
+  font-size: 100%;
+  font-style: italic;
+}
+</style>
+<style type="text/css">.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #408080; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #BC7A00 } /* Comment.Preproc */
+.highlight .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #408080; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #408080; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #7D9029 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0000FF } /* Name.Function */
+.highlight .nl { color: #A0A000 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */</style>
+<style type="text/css">
+/* Temporary definitions which will become obsolete with Notebook release 5.0 */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-bold { font-weight: bold; }
+</style>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img alt="Wrangle OpenStreetMap Data of Gastein Valley, Austria" src="http://cdn.salzburg.com/nachrichten/uploads/pics/2015-07/orginal/neue-flying-fox-ueber-wasserfall-von-bad-gastein-soll-ort-beleben-41-59187151.jpg" /></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Summary">Summary<a class="anchor-link" href="#Summary">¶</a></h2><p>Third project of the Udacity Data Analyst Nanodegree covers the aspects of the data wrangling: gathering, extracting, cleaning and storing the data. I was supposed to choose the region and wrangle the data set of the OpenStreetMap. I’ve chosen the place where I live - Gastein valley - one of the most popular tourist destinations in Austria, which is famous for the great skiing area and thermal water. In my project I’m going to concentrate on the accommodation data (hotels, apartments, etc.) as it’s always important for the travel industry.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Problems-encountered-in-your-map">Problems encountered in your map<a class="anchor-link" href="#Problems-encountered-in-your-map">¶</a></h2><p>After downloading the data of the Gastein valley and I’ve run a number of explorational functions in my python program to identify which tag’s keys and values are used to code accommodations, their address and other contact information. While there was no much rubbish in the data, I noticed three main problems with the data, which I will discuss in the following order:</p>
+<ol>
+<li>Different writing of the street names (using “-” and spaces)  </li>
+<li>Part of the accommodations don’t have the address information  </li>
+<li>Phone number is written always differently</li>
+</ol>
+<h3 id="Different-writing-of-the-street-names">Different writing of the street names<a class="anchor-link" href="#Different-writing-of-the-street-names">¶</a></h3><p>There are different ways how to harmonize street writing: we might use the language rules or the official list issued by the government (if exists). In German language, the rules of writing the street names are quite complicated. So, I’ve found the catalog of streets[1], issued by the government and use it as a standard. I’m comparing the streets in osm file with the standard writing and, if the writing is different, I’m searching the replacement using get_close_matches function from difflib library.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">get_street_std_list</span><span class="p">():</span>
+<span class="sd">"""</span>
+<span class="sd">function uses the csv file with standard writing of the cities, streets and postcodes, </span>
+<span class="sd">created by the government, and create the list street_std_list of the reference writing </span>
+<span class="sd">of the street names</span>
+<span class="sd">"""</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">street_std_file</span><span class="p">,</span><span class="s1">'rb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">addr</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictReader</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s1">';'</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">addr</span><span class="p">:</span>
+            <span class="n">street_std_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">elem</span><span class="p">[</span><span class="s1">'Straßenname'</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">'utf-8'</span><span class="p">)]</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">'utf-8'</span><span class="p">))</span>
+            
+<span class="k">def</span> <span class="nf">street_std</span><span class="p">(</span><span class="n">el</span><span class="p">):</span>
+<span class="sd">"""</span>
+<span class="sd">the function compares the street spelling in accommodation dictionary with the reference </span>
+<span class="sd">list of the streets. If the spelling is incorrect, the function use get_close_matches from </span>
+<span class="sd">difflib library to return the closest street from the reference street list and updates the </span>
+<span class="sd">street in the accommodation dictionary</span>
+<span class="sd">"""</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">street_std_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">get_street_std_list</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">el</span> <span class="ow">and</span> <span class="s1">'address'</span> <span class="ow">in</span> <span class="n">el</span> <span class="ow">and</span> <span class="s1">'street'</span> <span class="ow">in</span> <span class="n">el</span><span class="p">[</span><span class="s1">'address'</span><span class="p">]</span> <span class="ow">and</span> \
+            <span class="n">el</span><span class="p">[</span><span class="s1">'address'</span><span class="p">][</span><span class="s1">'street'</span><span class="p">]</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">'utf-8'</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">street_std_list</span><span class="p">:</span>
+        <span class="n">el</span><span class="p">[</span><span class="s1">'address'</span><span class="p">][</span><span class="s1">'street'</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_close_matches</span><span class="p">(</span><span class="n">el</span><span class="p">[</span><span class="s1">'address'</span><span class="p">][</span><span class="s1">'street'</span><span class="p">]</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">'utf-8'</span><span class="p">),</span>\
+                                                    <span class="n">street_std_list</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">'utf-8'</span><span class="p">)</span>        
+    <span class="k">return</span> <span class="n">el</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Part-of-the-accommodations-don’t-have-the-address-information">Part of the accommodations don’t have the address information<a class="anchor-link" href="#Part-of-the-accommodations-don’t-have-the-address-information">¶</a></h3><p>The most frustrating thing for me, if I decide to build the catalog of accommodations, is the fact that such an important information like address is missing in some of the cases. So, I’ve decided to use Google Places API to extend the information about my accommodations.<br>
+I’m using two-step process to get the necessary information: first I’m searching for the place using latitude and longitude information which is always available in OSM data. Even if the accommodation is coded with “way” object but not “node”, I’m using the coordinates of the referenced node. As a response, I’m receiving place_id, which I can use on the second step to get address.</br></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">google_adr</span><span class="p">(</span><span class="n">el</span><span class="p">):</span>
+<span class="sd">"""</span>
+<span class="sd">function google_adr is trying to get address of the aacoomodation using google places api </span>
+<span class="sd">It takes an accommodation dictionary as a parameter, updates it with the address information </span>
+<span class="sd">if possible and returns the dictionary back.</span>
+<span class="sd">Function tries to find the place first by lat and lon from the dictionary and radius 25 meters.</span>
+<span class="sd">If the response file contains object with the type "lodging", it takes the place id and creates </span>
+<span class="sd">another request to get data about the place. If response contains address information in </span>
+<span class="sd">address_components element, function updates the dictionary.</span>
+<span class="sd">"""</span>
+    <span class="n">API_KEY</span> <span class="o">=</span> <span class="s1">'AIzaSyBbFvfR8WjfnGaV3bSu2pjtdxtXWiEbfHQ'</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s1">'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=</span><span class="si">%f</span><span class="s1">,</span><span class="si">%f</span><span class="s1">&radius;=25&key;='</span>\
+                            <span class="o">%</span><span class="p">(</span><span class="n">el</span><span class="p">[</span><span class="s2">"pos"</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="n">el</span><span class="p">[</span><span class="s2">"pos"</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="n">API_KEY</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="n">requests</span><span class="o">.</span><span class="n">codes</span><span class="o">.</span><span class="n">ok</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">'results'</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="s2">"lodging"</span> <span class="ow">in</span> <span class="n">response</span><span class="p">[</span><span class="s1">'types'</span><span class="p">]:</span>
+                <span class="n">place_id</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s1">'place_id'</span><span class="p">]</span>
+                <span class="n">url2</span> <span class="o">=</span> <span class="s1">'https://maps.googleapis.com/maps/api/place/details/json?placeid=</span><span class="si">%s</span><span class="s1">&key;='</span>\
+                            <span class="o">%</span><span class="p">(</span><span class="n">place_id</span><span class="p">)</span><span class="o">+</span><span class="n">API_KEY</span>
+                <span class="n">r2</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url2</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">r2</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="n">requests</span><span class="o">.</span><span class="n">codes</span><span class="o">.</span><span class="n">ok</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="s1">'result'</span> <span class="ow">in</span> <span class="n">r2</span><span class="o">.</span><span class="n">json</span><span class="p">():</span>
+                        <span class="n">el</span><span class="p">[</span><span class="s1">'address'</span><span class="p">]</span><span class="o">=</span><span class="p">{}</span>
+                        <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">r2</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">'result'</span><span class="p">][</span><span class="s1">'address_components'</span><span class="p">]:</span>
+                            <span class="k">if</span> <span class="n">elem</span><span class="p">[</span><span class="s1">'types'</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'street_number'</span><span class="p">:</span>
+                                <span class="n">el</span><span class="p">[</span><span class="s1">'address'</span><span class="p">][</span><span class="s1">'housenumber'</span><span class="p">]</span> <span class="o">=</span> <span class="n">elem</span><span class="p">[</span><span class="s1">'long_name'</span><span class="p">]</span>
+                            <span class="k">if</span> <span class="n">elem</span><span class="p">[</span><span class="s1">'types'</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'route'</span><span class="p">:</span>
+                                <span class="n">el</span><span class="p">[</span><span class="s1">'address'</span><span class="p">][</span><span class="s1">'street'</span><span class="p">]</span> <span class="o">=</span> <span class="n">elem</span><span class="p">[</span><span class="s1">'long_name'</span><span class="p">]</span>    
+                            <span class="k">if</span> <span class="n">elem</span><span class="p">[</span><span class="s1">'types'</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'locality'</span><span class="p">:</span>
+                                <span class="n">el</span><span class="p">[</span><span class="s1">'address'</span><span class="p">][</span><span class="s1">'city'</span><span class="p">]</span> <span class="o">=</span> <span class="n">elem</span><span class="p">[</span><span class="s1">'long_name'</span><span class="p">]</span>
+                            <span class="k">if</span> <span class="n">elem</span><span class="p">[</span><span class="s1">'types'</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'country'</span><span class="p">:</span>
+                                <span class="n">el</span><span class="p">[</span><span class="s1">'address'</span><span class="p">][</span><span class="s1">'country'</span><span class="p">]</span> <span class="o">=</span> <span class="n">elem</span><span class="p">[</span><span class="s1">'short_name'</span><span class="p">]</span>            
+                            <span class="k">if</span> <span class="n">elem</span><span class="p">[</span><span class="s1">'types'</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'postal_code'</span><span class="p">:</span>
+                                <span class="n">el</span><span class="p">[</span><span class="s1">'address'</span><span class="p">][</span><span class="s1">'postcode'</span><span class="p">]</span> <span class="o">=</span> <span class="n">elem</span><span class="p">[</span><span class="s1">'short_name'</span><span class="p">]</span>   
+                    <span class="n">el</span> <span class="o">=</span> <span class="n">street_std</span><span class="p">(</span><span class="n">el</span><span class="p">)</span>
+                    <span class="n">el</span> <span class="o">=</span> <span class="n">postcode_audit</span><span class="p">(</span><span class="n">el</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s2">"error"</span>
+    <span class="k">return</span> <span class="n">el</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>After getting the information, again I’m comparing the street with the standard writing.
+Google address data has some issues, f.ex. With postcodes format (f.ex. 5640 vs. A-5640). 
+So I’ve written the small function using the regular expression to elaborate this:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">postcode_audit</span><span class="p">(</span><span class="n">el</span><span class="p">):</span>
+<span class="sd">"""</span>
+<span class="sd">function postcode_audit takes the element as a parameter and, it's a postcode,</span>
+<span class="sd">returns the 4 digits code of the austrian postcode and deleter all other symbols if they occur</span>
+<span class="sd">"""</span>
+    <span class="k">if</span> <span class="s1">'postcode'</span> <span class="ow">in</span> <span class="n">el</span><span class="p">[</span><span class="s1">'address'</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">el</span><span class="p">[</span><span class="s1">'address'</span><span class="p">][</span><span class="s1">'postcode'</span><span class="p">])</span><span class="o">></span><span class="mi">4</span><span class="p">:</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">r'\d\d\d\d$'</span><span class="p">,</span><span class="n">el</span><span class="p">[</span><span class="s1">'address'</span><span class="p">][</span><span class="s1">'postcode'</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">m</span><span class="p">:</span>
+                <span class="n">el</span><span class="p">[</span><span class="s1">'address'</span><span class="p">][</span><span class="s1">'postcode'</span><span class="p">]</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">el</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Phone-number-is-written-always-differently">Phone number is written always differently<a class="anchor-link" href="#Phone-number-is-written-always-differently">¶</a></h3><p>Phone numbers are written quite different. So I’ve just decided to use single format for all of them. I’ve realized it using the sequence of regular expressions and re.sub function.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">phone_audit</span><span class="p">(</span><span class="n">el</span><span class="p">):</span>
+<span class="sd">"""</span>
+<span class="sd">function takes the phone and fax numbers in the accommodation dictionaries (if exist)</span>
+<span class="sd">and harmonize it to the single format +43*********.</span>
+<span class="sd">Function uses 4 regular expressions to do that:</span>
+<span class="sd">1) if the number starts from 0043 instead of +43, change to +43</span>
+<span class="sd">2) if the number has (0) after +43, takes it away</span>
+<span class="sd">3) deletes all spaces, - and / symbols from the phone</span>
+<span class="sd">4) deletes the 0 after +43 if it was in the number without parenthesis</span>
+<span class="sd">"""</span>
+    <span class="k">if</span> <span class="s2">"phone"</span> <span class="ow">in</span> <span class="n">el</span><span class="p">:</span>
+        <span class="c1"># 1</span>
+        <span class="n">el</span><span class="p">[</span><span class="s1">'phone'</span><span class="p">]</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">r'^00'</span><span class="p">,</span><span class="s1">'+'</span><span class="p">,</span><span class="n">el</span><span class="p">[</span><span class="s1">'phone'</span><span class="p">])</span>
+        <span class="c1"># 2</span>
+        <span class="n">el</span><span class="p">[</span><span class="s1">'phone'</span><span class="p">]</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">r'\(0\)'</span><span class="p">,</span><span class="s1">''</span><span class="p">,</span><span class="n">el</span><span class="p">[</span><span class="s1">'phone'</span><span class="p">])</span>
+        <span class="c1"># 3</span>
+        <span class="n">el</span><span class="p">[</span><span class="s1">'phone'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'+'</span><span class="o">+</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">r'[ -//]'</span><span class="p">,</span><span class="s1">''</span><span class="p">,</span><span class="n">el</span><span class="p">[</span><span class="s1">'phone'</span><span class="p">])</span>
+        <span class="c1"># 4</span>
+        <span class="n">el</span><span class="p">[</span><span class="s1">'phone'</span><span class="p">]</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">r'^\+430'</span><span class="p">,</span><span class="s2">"+43"</span><span class="p">,</span><span class="n">el</span><span class="p">[</span><span class="s1">'phone'</span><span class="p">])</span>
+    <span class="k">if</span> <span class="s2">"fax"</span> <span class="ow">in</span> <span class="n">el</span><span class="p">:</span>
+        <span class="n">el</span><span class="p">[</span><span class="s1">'fax'</span><span class="p">]</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">r'^00'</span><span class="p">,</span><span class="s1">'+'</span><span class="p">,</span><span class="n">el</span><span class="p">[</span><span class="s1">'phone'</span><span class="p">])</span>
+        <span class="n">el</span><span class="p">[</span><span class="s1">'fax'</span><span class="p">]</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">r'\(0\)'</span><span class="p">,</span><span class="s1">''</span><span class="p">,</span><span class="n">el</span><span class="p">[</span><span class="s1">'phone'</span><span class="p">])</span>
+        <span class="n">el</span><span class="p">[</span><span class="s1">'fax'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'+'</span><span class="o">+</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">r'[ -//]'</span><span class="p">,</span><span class="s1">''</span><span class="p">,</span><span class="n">el</span><span class="p">[</span><span class="s1">'phone'</span><span class="p">])</span>
+        <span class="n">el</span><span class="p">[</span><span class="s1">'fax'</span><span class="p">]</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">r'^\+430'</span><span class="p">,</span><span class="s2">"+43"</span><span class="p">,</span><span class="n">el</span><span class="p">[</span><span class="s1">'phone'</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">el</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Overview-of-the-data">Overview of the data<a class="anchor-link" href="#Overview-of-the-data">¶</a></h2><p>The osm file size is around 50MB. 
+Below are the statistics of the data I’ve used in the project:</p>
+<h3 id="Unique-users:">Unique users:<a class="anchor-link" href="#Unique-users:">¶</a></h3><p>There are 235 unique users.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">unique_users</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="n">users</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">ET</span><span class="o">.</span><span class="n">iterparse</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s1">'uid'</span> <span class="ow">in</span> <span class="n">element</span><span class="o">.</span><span class="n">attrib</span><span class="p">:</span>
+            <span class="n">users</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">'uid'</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">users</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Number-of-tags">Number of tags<a class="anchor-link" href="#Number-of-tags">¶</a></h3><p>nd 282033, node 244588, tag 74900, way 18160, member 12949, relation 283, osm 1, note 1, meta 1, bounds 1</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">audit_tag</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+	<span class="n">cnt</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>	
+	<span class="k">for</span> <span class="n">event</span><span class="p">,</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">ET</span><span class="o">.</span><span class="n">iterparse</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">events</span><span class="o">=</span><span class="p">(</span><span class="s2">"start"</span><span class="p">,)):</span>
+		<span class="n">cnt</span><span class="p">[</span><span class="n">elem</span><span class="o">.</span><span class="n">tag</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+		<span class="n">elem</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+	<span class="n">print_sorted_dict</span><span class="p">(</span><span class="n">cnt</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Choose-the-data">Choose the data<a class="anchor-link" href="#Choose-the-data">¶</a></h3><p>To choose the accommodations, I’m using the tag key tourism and values ['hotel', 'chalet', 'guest_house', 'apartment', 'hostel']. 
+Below are results for “node” and “way”:
+Counter({'information': 468, 'viewpoint': 19, 'hotel': 13, 'artwork': 12, 'picnic_site': 8, 'chalet': 4, 'alpine_hut': 4, 'guest_house': 3, 'museum': 1, 'apartment': 1, 'camp_site': 1})
+Counter({'alpine_hut': 60, 'hotel': 50, 'guest_house': 13, 'chalet': 5, 'apartment': 4, 'museum': 3, 'picnic_site': 2, 'information': 1, 'camp_site': 1, 'hostel': 1})<br>
+Here are also some MongoDB queries to obtain the statistics:<br>
+Most popular city</br></br></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">pipeline</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">"$group"</span> <span class="p">:</span> <span class="p">{</span><span class="s2">"_id"</span> <span class="p">:</span> <span class="s2">"$address.city"</span><span class="p">,</span> <span class="s2">"count"</span> <span class="p">:</span> <span class="p">{</span><span class="s2">"$sum"</span> <span class="p">:</span> <span class="mi">1</span><span class="p">}}},</span>
+                <span class="p">{</span><span class="s2">"$sort"</span> <span class="p">:</span> <span class="p">{</span><span class="s2">"count"</span> <span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">}},</span>
+                <span class="p">{</span><span class="s2">"$limit"</span> <span class="p">:</span> <span class="mi">1</span><span class="p">}]</span>
+<span class="n">Result</span><span class="p">:</span> <span class="p">[{</span><span class="s1">u'_id'</span><span class="p">:</span> <span class="s1">u'Bad Gastein'</span><span class="p">,</span> <span class="s1">u'count'</span><span class="p">:</span> <span class="mi">42</span><span class="p">}]</span>
+<span class="mi">2</span> <span class="n">most</span> <span class="n">populars</span> <span class="n">postcodes</span><span class="p">:</span>
+<span class="n">pipeline</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">"$group"</span> <span class="p">:</span> <span class="p">{</span><span class="s2">"_id"</span> <span class="p">:</span> <span class="s2">"$address.postcode"</span><span class="p">,</span> <span class="s2">"count"</span> <span class="p">:</span> <span class="p">{</span><span class="s2">"$sum"</span> <span class="p">:</span> <span class="mi">1</span><span class="p">}}},</span>
+                <span class="p">{</span><span class="s2">"$sort"</span> <span class="p">:</span> <span class="p">{</span><span class="s2">"count"</span> <span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">}},</span>
+                <span class="p">{</span><span class="s2">"$limit"</span> <span class="p">:</span> <span class="mi">2</span><span class="p">}]</span>
+<span class="n">Resutl</span><span class="p">:</span> <span class="p">[{</span><span class="s1">u'_id'</span><span class="p">:</span> <span class="s1">u'5640'</span><span class="p">,</span> <span class="s1">u'count'</span><span class="p">:</span> <span class="mi">32</span><span class="p">},</span> <span class="p">{</span><span class="s1">u'_id'</span><span class="p">:</span> <span class="s1">u'5630'</span><span class="p">,</span> <span class="s1">u'count'</span><span class="p">:</span> <span class="mi">30</span><span class="p">}]</span>
+<span class="c1"># Number of documents (accommodations)                                               </span>
+<span class="o">></span> <span class="n">db</span><span class="o">.</span><span class="n">char</span><span class="o">.</span><span class="n">find</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>                                                
+<span class="mi">98</span>                                                
+<span class="c1"># Number of nodes                                            </span>
+<span class="n">db</span><span class="o">.</span><span class="n">char</span><span class="o">.</span><span class="n">find</span><span class="p">({</span><span class="s2">"type"</span><span class="p">:</span><span class="s2">"node"</span><span class="p">})</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+<span class="mi">21</span>                                               
+<span class="c1"># Number of ways                                                </span>
+<span class="n">db</span><span class="o">.</span><span class="n">char</span><span class="o">.</span><span class="n">find</span><span class="p">({</span><span class="s2">"type"</span><span class="p">:</span><span class="s2">"way"</span><span class="p">})</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+<span class="mi">77</span>     
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Other-ideas-about-the-datasets">Other ideas about the datasets<a class="anchor-link" href="#Other-ideas-about-the-datasets">¶</a></h2><p>As a hotel manager, I know exactly how important for the tourists to have accurate data about the accommodations. The travel agencies must always support the customers with the actual contact information. From the other side, companies who are doing business with the hotels might also win from the information about the potential customers. F.ex. I’ve used to implement WiFi solutions at the hotels and used hotel’s wifi scores from booking.com to target potential customers.<br>
+I like the opportunity Google Places API gave me to improve my data. I would work further with Google to extend contact information as well as crawl properties’ web pages to get more contact information (like facebook page) and some online travel agencies to get more information if the accommodation is open or not.<br>
+Adding more information from more sources bring more issues with cleaning the data. Even the case with Google and addresses was a great example of how clean the data was in OSM (clean but limited). I should write additional functions to clean google’s data as well (like post code)</br></br></p>
+<h2 id="References">References<a class="anchor-link" href="#References">¶</a></h2><p>Statistik Austria: <a href="http://www.statistik.at/web_de/klassifikationen/regionale_gliederungen/strassen/index.html">http://www.statistik.at/web_de/klassifikationen/regionale_gliederungen/strassen/index.html</a></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: 'center'," +
+        "    displayIndent: '0em'," +
+        "    showMathMenu: true," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['$','$'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
+        "    } " +
+        "}); ";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+
+            </div>
+            <!-- /.entry-content -->
+    <hr/>
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'leyzerov'; // required: replace example with your forum shortname
+
+                    var disqus_identifier = 'data_wrangling';
+                var disqus_url = '/data_wrangling.html';
+
+            var disqus_config = function () {
+                this.language = "en";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://at.linkedin.com/in/leyzerov"><i class="fa fa-linkedin-square fa-lg"></i> LinkedIn</a></li>
+                <li class="list-group-item"><a href="https://github.com/olegleyz/"><i class="fa fa-github-square fa-lg"></i> GitHub</a></li>
+              </ul>
+            </li>
+
+
+
+
+
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2016 Oleg Leyzerov
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="/theme/js/respond.min.js"></script>
+
+    <!-- Disqus -->
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'leyzerov'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+    <!-- End Disqus Code -->
+
+</body>
+</html>
