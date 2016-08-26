@@ -1182,7 +1182,7 @@ I’m using two-step process to get the necessary information: first I’m searc
 <span class="sd">another request to get data about the place. If response contains address information in </span>
 <span class="sd">address_components element, function updates the dictionary.</span>
 <span class="sd">"""</span>
-    <span class="n">API_KEY</span> <span class="o">=</span> <span class="s1">'AIzaSyBbFvfR8WjfnGaV3bSu2pjtdxtXWiEbfHQ'</span>
+    <span class="n">API_KEY</span> <span class="o">=</span> <span class="s1">'API KEY'</span>
     <span class="n">url</span> <span class="o">=</span> <span class="s1">'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=</span><span class="si">%f</span><span class="s1">,</span><span class="si">%f</span><span class="s1">&radius;=25&key;='</span>\
                             <span class="o">%</span><span class="p">(</span><span class="n">el</span><span class="p">[</span><span class="s2">"pos"</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="n">el</span><span class="p">[</span><span class="s2">"pos"</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="n">API_KEY</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
