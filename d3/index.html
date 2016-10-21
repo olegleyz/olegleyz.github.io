@@ -18,8 +18,8 @@
 		.bullet .measure.s0 { fill: #535353; }
 		.bullet .measure.s1 { opacity: 0; }
 		.bullet .title { font-size: 14px; font-weight: bold; }
-		.bullet .subtitle { fill: #999; }
-		.bullet .tick { fill: #999; }
+		.bullet .subtitle { fill: #ddd; }
+		.bullet .tick { fill: #ddd; }
 	</style>
 	<script src="//d3js.org/d3.v3.min.js"></script>
 	<script src="//d3js.org/topojson.v1.min.js"></script>
@@ -172,7 +172,7 @@
 			    states.push(featureCollection.features[i].properties.name);			
 			};
 
-			var states_index = 0;
+			var states_index = 9;
 			var states_interval = setInterval(function(d){
 				update_states(states_index,states[states_index]);
 				states_index++;
@@ -274,8 +274,8 @@
 				.attr("id", "tt_rect")
 				.attr("rx", 12)
 				.attr("ry", 12)
-				.attr("x", svg_width - 300)
-				.attr("y", 25)
+				.attr("x", svg_width - 290)
+				.attr("y", 15)
 				.attr("width", 275)
 				.attr("height", 100)
 				.attr("opacity", 0.8)
@@ -283,8 +283,8 @@
 
 			tt.append("text")
 				.text("Ski area")
-				.attr("x", (svg_width - 290 + 275/2))
-				.attr("y", 55)
+				.attr("x", (svg_width - 280 + 275/2))
+				.attr("y", 45)
 				.style("text-anchor", "middle")
 				.style("fill", "#fff")
 				.style("font-weight","bold")
@@ -293,8 +293,8 @@
 			tt.append("text")
 				.attr("id", "tt_2")
 				.text("Hover over a ski area")
-				.attr("x", (svg_width - 290 + 275/2))
-				.attr("y", 75)
+				.attr("x", (svg_width - 280 + 275/2))
+				.attr("y", 65)
 				.style("text-anchor", "middle")
 				.style("fill", d3.rgb("#fff").darker(1));
 			
@@ -328,7 +328,7 @@
 		        	.attr("class","tt_arc")
 		        	.attr("id", "tt_arc_title")
 		        	.text("Slopes")
-		        	.attr("transform", "translate("+(svg_width-220)+","+(160-radius-10)+")")
+		        	.attr("transform", "translate("+(svg_width-210)+","+(150-radius-10)+")")
 		        	.style("text-anchor", "middle")
 			        .attr("fill", "#fff");
 
@@ -340,14 +340,14 @@
 					.attr("id", "tt_arc")
 					.attr('d', arc)
 					.attr('fill', function(d, i) {return color(d.data.label);})
-					.attr("transform", "translate("+(svg_width-220)+","+160+")")
+					.attr("transform", "translate("+(svg_width-210)+","+150+")")
 					.each(function(d) {this._current = d; });
 		        
 		        d3.select("#tooltip").append("text")
 			        .attr("class", "tt_arc")
 			        .attr("id","tt_arc_km")
 			        .text(Number(dataset[0].count)+Number(dataset[1].count)+Number(dataset[2].count)+' km')
-			        .attr("transform", "translate("+(svg_width-220)+","+165+")")
+			        .attr("transform", "translate("+(svg_width-210)+","+155+")")
 			        .style("text-anchor", "middle")
 			        .attr("fill", "#fff");
 
@@ -355,7 +355,7 @@
 		        	.attr("class", "tt_lift")
 		        	.attr("id", "tt_lift_title")
 		        	.text("Ski lifts")
-		        	.attr("transform", "translate("+(svg_width-100)+","+(160-radius-10)+")")
+		        	.attr("transform", "translate("+(svg_width-90)+","+(150-radius-10)+")")
 		        	.style("text-anchor", "middle")
 			        .attr("fill", "#fff");
 
@@ -364,8 +364,8 @@
 			    	.attr("class", "tt_lift")
 			    	.attr("id", "tt_lift_icon")
 			    	.attr("xlink:href","ski_lift_icon.svg")
-			    	.attr("x", svg_width - 150)
-			    	.attr("y", 110)
+			    	.attr("x", svg_width - 140)
+			    	.attr("y", 100)
 			    	.attr('height', '100')
 					.attr('width', '100')
 					.attr('background', 'red');
@@ -374,7 +374,7 @@
 		        	.attr("class", "tt_lift")
 		        	.attr("id", "tt_lift_n")
 		        	.text(ski_areas[mouseover_id].Lifts)
-		        	.attr("transform", "translate("+(svg_width-100)+","+205+")")
+		        	.attr("transform", "translate("+(svg_width-90)+","+195+")")
 		        	.style("text-anchor", "middle")
 			        .attr("fill", "#fff");
 			
@@ -382,7 +382,7 @@
 		        	.attr("class", "tt_price")
 		        	.attr("id", "tt_price_title")
 		        	.text("Ski pass prices")
-		        	.attr("transform", "translate("+(svg_width-300 + 275/2)+","+235+")")
+		        	.attr("transform", "translate("+(svg_width-290 + 275/2)+","+225+")")
 		        	.style("text-anchor", "middle")
 			        .attr("fill", "#fff");
 
@@ -424,7 +424,7 @@
 									.attr("width", 100)
 									.attr("height", height + margin.top + margin.bottom)
 									.attr("transform", function(d,i) {
-										return "translate("+(svg_width-300 + 65)+","+(280+(i-1)*35)+")"})
+										return "translate("+(svg_width-290 + 65)+","+(270+(i-1)*35)+")"})
 									.call(chart);
 							
 
@@ -454,10 +454,10 @@
 			legend.append("rect")
 				.attr("rx", 12)
 				.attr("ry", 12)
-				.attr("x", svg_width - 140)
-				.attr("y", svg_height - 140)
+				.attr("x", svg_width - 130)
+				.attr("y", svg_height - 100)
 				.attr("width", 115)
-				.attr("height", 115)
+				.attr("height", 85)
 				.attr("opacity", 0.8)
 				.style("fill", "#535353");
 
@@ -467,13 +467,13 @@
 						.append("g")
 						.attr("class","legend");
 			
-			gridSize = 35;
+			gridSize = 20;
 			legendWidth = (gridSize / 2) + 4;
 			legend_text = ['<50k', '50 - 400k', '400 - 2000k', '>2000k'];
 
 			legend_c.append("rect")
-						.attr("x", svg_width - 130)
-						.attr("y", function(d,i) {return (svg_height - 130 + gridSize/2 + i*(gridSize/2+2));})
+						.attr("x", svg_width - 120)
+						.attr("y", function(d,i) {return (svg_height - 80 + gridSize/2 + i*(gridSize/2+2));})
 						.attr("width", gridSize/2)
 						.attr("height",gridSize/2)
 						.style("fill",function(d){return d})
@@ -482,14 +482,15 @@
 			legend_c.append("text")
 						.attr("class", "mono")
 						.text(function(d,i) {return legend_text[i];})
-						.attr("x", svg_width - 125 + gridSize/2)
-						.attr("y", function(d,i) {return (svg_height - 135 + gridSize + i*(gridSize/2+2));})
-						.style("fill", "#fff");
+						.attr("x", svg_width - 115 + gridSize/2)
+						.attr("y", function(d,i) {return (svg_height - 83 + gridSize + i*(gridSize/2+2));})
+						.style("fill", "#ddd")
+						.style("font-size","10px");
 
 			legend.append("text")
 						.attr("class", "mono")
-						.attr("x", svg_width - 134)
-						.attr("y", svg_height - 120)
+						.attr("x", svg_width - 124)
+						.attr("y", svg_height - 80)
 						.text("# of nights spent")
 						.style("fill", "#fff");
 
@@ -712,7 +713,9 @@
 			svg = d3.select("body")
 						.append("svg")
 						.attr("width", svg_width)
-						.attr("height", svg_height);
+						.attr("height", svg_height)
+						.attr("xmlns","http://www.w3.org/2000/svg")
+						.attr("xmlns:xlink","http://www.w3.org/1999/xlink");
 						
 			draw_intro(geo_data, draw_next);
 		};
